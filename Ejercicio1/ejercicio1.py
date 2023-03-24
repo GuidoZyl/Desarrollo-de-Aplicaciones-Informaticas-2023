@@ -5,8 +5,13 @@ import pandas as pd
 
 lista = []
 
+df = pd.read_csv("presupuestos.csv")
+print(len(df))
+ult_index = len(df)
+print(ult_index)
+
 while True:
-    print("1: Nuevo presupuesto\n2: Lista de presupuestos")
+    print("1: Nuevo presupuesto\n2: Lista de presupuestos\nQ: Salir")
     opcion = input("Seleccione una opción: ")
 
     if (opcion == "1"):
@@ -21,6 +26,9 @@ while True:
 
         lista.append([nombre, colegio, cant_viajeros, acompañantes, precio])
 
+        ult_index = df.tail(1).index()
+        #df = df
+
     elif (opcion == "2"):
         count = 1
         print("-----------------")
@@ -30,6 +38,9 @@ while True:
                   "\nAcompañantes: " + str(presupuesto[3]) + "\nPrecio: $" + str(presupuesto[4]))
             print("-----------------")
             count += 1
+
+    elif (opcion == "q" or opcion == "Q"):
+        break
 
     else: 
         print("\nIngrese una opción valida\n")
