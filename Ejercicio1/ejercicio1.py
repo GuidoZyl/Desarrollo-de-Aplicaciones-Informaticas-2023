@@ -1,14 +1,11 @@
 import pandas as pd
 
-### HACER FUNCIÓN QUE ESCUCHE EVENTOS DE TECLADO PARA CANCELAR LA EJECUCIÓN EN CUALQUIER MOMENTO
-### CREAR DATAFRAME A PARTIR DE LA LISTA
+df = pd.read_csv("presupuestos.csv")
 
 lista = []
-
-df = pd.read_csv("presupuestos.csv")
-print(len(df))
-ult_index = len(df)
-print(ult_index)
+for i in df.index:
+    presupuesto = [df['Nombre'][i], df['Colegio'][i], df['Cantidad de viajeros'][i], df['Acompañantes'][i], df['Precio'][i]]
+    lista.append(presupuesto)
 
 while True:
     print("1: Nuevo presupuesto\n2: Lista de presupuestos\nQ: Salir")
@@ -24,10 +21,12 @@ while True:
         
         print("Precio: $" + str(precio) + "\n")
 
-        lista.append([nombre, colegio, cant_viajeros, acompañantes, precio])
+        presu = [nombre, colegio, cant_viajeros, acompañantes, precio]
 
-        ult_index = df.tail(1).index()
-        #df = df
+        lista.append(presu)
+
+        df = df.append(pd.DataFrame([presu], columns=["Nombre", "Colegio", "Cantidad de viajeros", "Acompañantes", "Precio"]), ignore_index=True)
+        df.to_csv('presupuestos.csv')
 
     elif (opcion == "2"):
         count = 1
